@@ -126,6 +126,15 @@ public class ImagePanel extends JPanel {
             e.printStackTrace();
         }
     }
+
+    public Point2D getPress(){
+        return press;
+    }
+
+    public Point2D getPressNo() {
+        return pressNo;
+    }
+
     private int xImg, yImg, wImg, hImg; // координаты углов картинки
     private double zoom = 1;
     private Rectangle2D rect = new Rectangle2D.Double();
