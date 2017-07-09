@@ -52,12 +52,11 @@ public class ImageViewerFrame extends JFrame {
     }
 
     public void showFiles(ArrayList<File> files) {
-
         path = files.get(currentFile).getPath();
         panel.setImage(path);
     }
 
-    public void getNextImage() {
+    public boolean getNextImage() {
         currentFile++;
         if (currentFile >= files.size()) {
             try {
@@ -67,10 +66,12 @@ public class ImageViewerFrame extends JFrame {
                 e.printStackTrace();
             }
             JOptionPane.showMessageDialog(null, "No more files");
+            return false;
         }
         else {
             path = files.get(currentFile).getPath();
             panel.setImage(path);
+            return true;
         }
     }
 
@@ -117,7 +118,6 @@ public class ImageViewerFrame extends JFrame {
                     File folder = chooser.getSelectedFile();
                     listFilesForFolder(folder);
                     showFiles(files);
-
                     writeDatFiles();
                 }
             }
@@ -138,8 +138,10 @@ public class ImageViewerFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    writerBad.write(path + "\n");
-                    getNextImage();
+                    if(getNextImage()) {
+                        writerBad.write(path + "\n");
+                    }
+
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -153,8 +155,9 @@ public class ImageViewerFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    writerGood.write(path + getRectangleCoordinates() + "\n");
-                    getNextImage();
+                    if(getNextImage()) {
+                        writerGood.write(path + getRectangleCoordinates() + "\n");
+                    }
 
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -166,5 +169,9 @@ public class ImageViewerFrame extends JFrame {
 
     public String getPath() {
         return path;
+    }
+
+    public ArrayList<File> getFiles() {
+        return files;
     }
 }
