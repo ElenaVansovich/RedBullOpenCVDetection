@@ -15,9 +15,10 @@ import java.util.ArrayList;
 public class ImageViewerFrame extends JFrame {
 
     private JFileChooser chooser;
-    private static final int DEFAULT_WIDTH = 500;
-    private static final int DEFAULT_HEIGHT = 500;
-    private ImagePanel panel;
+    private static final int DEFAULT_WIDTH = 800;
+    private static final int DEFAULT_HEIGHT = 600;
+    private ImagePanel imagePanel;
+    private Panel panel;
     private ArrayList<File> files = new ArrayList<>();
 
     private String path = "";
@@ -53,7 +54,7 @@ public class ImageViewerFrame extends JFrame {
 
     public void showFiles(ArrayList<File> files) {
         path = files.get(currentFile).getPath();
-        panel.setImage(path);
+        imagePanel.setImage(path);
     }
 
     public boolean getNextImage() {
@@ -70,20 +71,21 @@ public class ImageViewerFrame extends JFrame {
         }
         else {
             path = files.get(currentFile).getPath();
-            panel.setImage(path);
+            imagePanel.setImage(path);
             return true;
         }
     }
 
     public String getRectangleCoordinates(){
-        Point2D press = panel.getPress();
-        Point2D pressNo = panel.getPressNo();
-        return "" + 1 + " " + press.getX() + " " + press.getY() + " " + pressNo.getX() + " " + pressNo.getY();
+        Point2D press = imagePanel.getPress();
+        Point2D pressNo = imagePanel.getPressNo();
+        return " " + 1 + " " + press.getX() + " " + press.getY() + " " + pressNo.getX() + " " + pressNo.getY();
     }
 
     public ImageViewerFrame() {
 
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        setBackground(new Color(216, 230, 243));
 
         chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File("."));
@@ -102,7 +104,8 @@ public class ImageViewerFrame extends JFrame {
 
                 if (result == JFileChooser.APPROVE_OPTION) {
                     path = chooser.getSelectedFile().getPath();
-                    panel.setImage(path);
+                    imagePanel.setImage(path);
+                    writeDatFiles();
                 }
             }
         });
@@ -131,15 +134,29 @@ public class ImageViewerFrame extends JFrame {
             }
         });
 
-        panel = new ImagePanel();
-        JButton buttonMinus = new JButton("-");
-        this.add(buttonMinus, BorderLayout.WEST);
+        imagePanel = new ImagePanel();
+        imagePanel.setPreferredSize(new Dimension(DEFAULT_WIDTH - 50, DEFAULT_HEIGHT - 50));
+        imagePanel.setBackground(new Color(216, 230, 243));
+
+        panel = new Panel();
+        panel.setBackground(new Color(216, 230, 243));
+
+        ImageIcon icon1 = new ImageIcon("minus.png");
+
+        Image scaled1 = icon1.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+
+        JButton buttonMinus = new JButton();
+        buttonMinus.setIcon(new ImageIcon(scaled1));
+
+        panel.add(buttonMinus, BorderLayout.WEST);
         buttonMinus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if(getNextImage()) {
-                        writerBad.write(path + "\n");
+                    if(!path.equals("")) {
+                        if (getNextImage()) {
+                            writerBad.write(path + "\n");
+                        }
                     }
 
                 } catch (IOException e1) {
@@ -148,15 +165,29 @@ public class ImageViewerFrame extends JFrame {
             }
         });
 
+        ImageIcon icon2 = new ImageIcon("plus.png");
 
-        JButton buttonPlus = new JButton("+");
-        this.add(buttonPlus, BorderLayout.EAST);
+        Image scaled2 = icon2.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+
+        JButton buttonPlus = new JButton();
+        buttonPlus.setIcon(new ImageIcon(scaled2));
+
+        panel.add(buttonPlus, BorderLayout.EAST);
         buttonPlus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if(getNextImage()) {
-                        writerGood.write(path + getRectangleCoordinates() + "\n");
+                    if (!path.equals("")) {
+                        if ((imagePanel.getPress()).getX() == 0 &&
+                                (imagePanel.getPress()).getY() == 0 &&
+                                (imagePanel.getPressNo()).getX() == 0 &&
+                                (imagePanel.getPressNo()).getY() == 0) {
+                            JOptionPane.showMessageDialog(null, "Area is not selected");
+                        } else {
+                            if (getNextImage()) {
+                                writerGood.write(path + getRectangleCoordinates() + "\n");
+                            }
+                        }
                     }
 
                 } catch (IOException e1) {
@@ -164,7 +195,8 @@ public class ImageViewerFrame extends JFrame {
                 }
             }
         });
-        this.add(panel);
+        this.add(panel, BorderLayout.NORTH);
+        this.add(imagePanel, BorderLayout.SOUTH);
     }
 
     public String getPath() {
