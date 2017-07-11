@@ -1,5 +1,7 @@
 import javax.swing.*;
-
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 06.07.2017.
@@ -12,14 +14,14 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        String path = "";
+        List<File> files = new ArrayList<>();
 
-        while(path.equals("")) {
-            path = ((ImageViewerFrame) frame).getPath();
-            if (!path.equals("")) {
-
+        while(true) {
+            files = ((ImageViewerFrame) frame).getFiles();
+            if (files.size() != 0) {
                 Detect det = new Detect();
-                det.detect(path);
+                det.detect(files, "cascade.xml", null);
+                break;
             }
         }
     }

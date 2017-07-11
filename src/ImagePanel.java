@@ -54,7 +54,6 @@ public class ImagePanel extends JPanel {
                             &&
                             xImg <= pressNo.getX() && yImg <= pressNo.getY()
                             &&
-
                             wImg >= pressNo.getX() && hImg >= pressNo.getY() &&
                             wImg >= press.getX() && hImg >= press.getY()
                             ) {
@@ -101,12 +100,8 @@ public class ImagePanel extends JPanel {
 
         Graphics2D g2 = (Graphics2D) g;
         if (img != null) {
-            g2.drawImage(img, 0, 0, (int)(wImg*zoom), (int)(hImg*zoom),
-                    xImg,
-                    yImg,
-                    xImg + wImg,
-                    yImg + hImg,
-                    null);
+            g2.drawImage(img, 0, 0, this.getWidth(), this.getHeight(),
+                    this);
             if (pressedBtn) {
                 g2.draw(rect);
             }
@@ -119,13 +114,22 @@ public class ImagePanel extends JPanel {
             zoom = 1;
             xImg = 0;
             yImg = 0;
-            wImg = img.getWidth(ImagePanel.this);
-            hImg = img.getHeight(ImagePanel.this);
+            wImg = img.getWidth(this);
+            hImg = img.getHeight(this);
             repaint();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public Point2D getPress(){
+        return press;
+    }
+
+    public Point2D getPressNo() {
+        return pressNo;
+    }
+
     private int xImg, yImg, wImg, hImg; // координаты углов картинки
     private double zoom = 1;
     private Rectangle2D rect = new Rectangle2D.Double();
