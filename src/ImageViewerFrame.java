@@ -20,6 +20,7 @@ public class ImageViewerFrame extends JFrame {
     private ImagePanel imagePanel;
     private Panel panel;
     private ArrayList<File> files = new ArrayList<>();
+    private ArrayList<File> testFiles = new ArrayList<>();
 
     private String path = "";
     private Integer currentFile = 0;
@@ -27,6 +28,9 @@ public class ImageViewerFrame extends JFrame {
     private File badFile;
     private File goodFile;
     private File folder;
+    private File xmlFile;
+
+    private boolean isXmlAdded = false;
 
     private BufferedWriter writerBad;
     private BufferedWriter writerGood;
@@ -88,6 +92,15 @@ public class ImageViewerFrame extends JFrame {
 
     public String getRelativePath(){
         return path.substring(folder.getPath().length());
+    }
+
+
+    public void test() {
+        if (files.size() != 0) {
+            Detect det = new Detect();
+            det.detect(files, xmlFile.getPath(), null);
+
+        }
     }
 
     public ImageViewerFrame() {
@@ -174,8 +187,16 @@ public class ImageViewerFrame extends JFrame {
             }
         });
 
-        ImageIcon icon2 = new ImageIcon("plus.png");
+        JButton buttonFinish = new JButton("FINISH");
+        panel.add(buttonFinish, BorderLayout.CENTER);
+        buttonFinish.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+
+        ImageIcon icon2 = new ImageIcon("plus.png");
         Image scaled2 = icon2.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 
         JButton buttonPlus = new JButton();
@@ -206,6 +227,36 @@ public class ImageViewerFrame extends JFrame {
         });
         this.add(panel, BorderLayout.NORTH);
         this.add(imagePanel, BorderLayout.SOUTH);
+
+
+        JMenu testMenu = new JMenu("Test");
+        menuBar.add(testMenu);
+
+        JMenuItem addXmlItem = new JMenuItem("Add xml");
+        testMenu.add(addXmlItem);
+        addXmlItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                int result = chooser.showOpenDialog(null);
+
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    xmlFile = chooser.getSelectedFile();
+                    isXmlAdded = true;
+                }
+            }
+        });
+
+        JMenuItem testItem = new JMenuItem("Test");
+        testMenu.add(testItem);
+        testItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (!isXmlAdded){
+                    JOptionPane.showMessageDialog(null, "Xml is not added");
+                }
+                else test();
+            }
+        });
+
+
     }
 
     public String getPath() {
