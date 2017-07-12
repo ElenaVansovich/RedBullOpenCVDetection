@@ -10,5 +10,8 @@
     <orderEntry type="library" name="javacpp" level="project" />
     <orderEntry type="library" name="javacv" level="project" />
     <orderEntry type="library" name="opencv-249" level="project" />
+    <orderEntry type="library" name="com.googlecode.javacpp:javacpp:0.7" level="project" />
+    <orderEntry type="library" name="org.bytedeco:javacv:0.9" level="project" />
+    <orderEntry type="library" name="org.openpnp:opencv:2.4.9-8" level="project" />
   </component>
 </module>

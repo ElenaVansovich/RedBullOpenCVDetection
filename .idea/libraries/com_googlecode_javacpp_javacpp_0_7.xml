@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="com.googlecode.javacpp:javacpp:0.7" type="repository">
+    <properties maven-id="com.googlecode.javacpp:javacpp:0.7" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/javacpp/javacpp/0.7/javacpp-0.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

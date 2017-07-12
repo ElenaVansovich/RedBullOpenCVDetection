@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="org.bytedeco:javacv:0.9" type="repository">
+    <properties maven-id="org.bytedeco:javacv:0.9" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacv/0.9/javacv-0.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp/0.9/javacpp-0.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp-presets/opencv/2.4.9-0.9/opencv-2.4.9-0.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp-presets/ffmpeg/2.3-0.9/ffmpeg-2.3-0.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp-presets/flycapture/2.6.3.4-0.9/flycapture-2.6.3.4-0.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp-presets/libdc1394/2.2.2-0.9/libdc1394-2.2.2-0.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp-presets/libfreenect/0.5-0.9/libfreenect-0.5-0.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp-presets/videoinput/0.200-0.9/videoinput-0.200-0.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp-presets/artoolkitplus/2.3.0-0.9/artoolkitplus-2.3.0-0.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
