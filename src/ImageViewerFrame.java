@@ -198,7 +198,8 @@ public class ImageViewerFrame extends JFrame {
         buttonFinish.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                closeWriters();
+                JOptionPane.showMessageDialog(null, "Sorting is finished");
             }
         });
 
