@@ -44,6 +44,24 @@ public class ImageViewerFrame extends JFrame {
             }
         }
     }
+
+    public void quickCheckingBadFiles(final File folder, final BufferedWriter writerBad) {
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                quickCheckingBadFiles(fileEntry, writerBad);
+            } else {
+                double fileSize = fileEntry.length();
+                if (fileSize < 300.0) {
+                    try {
+                        writerBad.write("Bad" + getRelativePath() + "\n");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
     public void closeWriters(){
         try {
             writerGood.close();
@@ -102,6 +120,7 @@ public class ImageViewerFrame extends JFrame {
 
         }
     }
+
 
     public ImageViewerFrame() {
 

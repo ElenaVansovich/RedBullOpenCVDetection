@@ -22,45 +22,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Detect.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Detect.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-33">
-              <caret line="64" column="42" lean-forward="false" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="42" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImagePanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImagePanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="11" lean-forward="false" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="12" column="43" lean-forward="false" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImageViewerFrame.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ImageViewerFrame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ImageViewerFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="199" column="5" lean-forward="true" selection-start-line="199" selection-start-column="5" selection-end-line="199" selection-end-column="5" />
+            <state relative-caret-position="507">
+              <caret line="53" column="39" lean-forward="true" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Detect.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Detect.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="48" lean-forward="false" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -77,6 +55,12 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>files</find>
+      <find>writerBad</find>
+    </findStrings>
+  </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
       <projects_view />
@@ -88,9 +72,9 @@
         <option value="$PROJECT_DIR$/src/Form.java" />
         <option value="$PROJECT_DIR$/src/Demo.java" />
         <option value="$PROJECT_DIR$/src/Detect.java" />
-        <option value="$PROJECT_DIR$/src/ImageViewerFrame.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/ImagePanel.java" />
+        <option value="$PROJECT_DIR$/src/ImageViewerFrame.java" />
       </list>
     </option>
   </component>
@@ -696,20 +680,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/good.dat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bad.dat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/with_elements/19 (2)_detect_ 1_elements.bmp">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -788,20 +758,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageViewerFrame.java">
+    <entry file="file://$PROJECT_DIR$/src/Detect.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="199" column="5" lean-forward="true" selection-start-line="199" selection-start-column="5" selection-end-line="199" selection-end-column="5" />
+        <state relative-caret-position="420">
+          <caret line="28" column="48" lean-forward="false" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Detect.java">
+    <entry file="file://$PROJECT_DIR$/test.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-33">
-          <caret line="64" column="42" lean-forward="false" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="42" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good.dat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bad.dat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImageViewerFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="53" column="39" lean-forward="true" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
