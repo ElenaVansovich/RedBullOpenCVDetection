@@ -1,8 +1,8 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.Point2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class ImagePanel extends JPanel {
             }
         });*/
 
-        this.addMouseWheelListener(new MouseWheelListener() {
+        /*/this.addMouseWheelListener(new MouseWheelListener() {
             //слушает колёсико мышки и изменяет размер картинки
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
@@ -33,7 +33,7 @@ public class ImagePanel extends JPanel {
                 }
                 repaint();
             }
-        });
+        });*/
 
         this.addMouseListener(new MouseAdapter() {
             //первая точка, где кликается мышкой
@@ -49,7 +49,7 @@ public class ImagePanel extends JPanel {
                 pressNo = e.getPoint();
                 pressedBtn = false;
                 //проверка, не выходит ли прямоугольник за границы картинки
-                if(pressNo.getX() != 0 && pressNo.getY() != 0) {
+                /*if(pressNo.getX() != 0 && pressNo.getY() != 0) {
                     if (xImg <= press.getX() && yImg <= press.getY()
                             &&
                             xImg <= pressNo.getX() && yImg <= pressNo.getY()
@@ -59,7 +59,7 @@ public class ImagePanel extends JPanel {
                             ) {
                         System.out.println(press.getX() + " " + press.getY() + " " + pressNo.getX() + " " + pressNo.getY());
                     }
-                }
+                }*/
             }
         });
 
@@ -100,7 +100,7 @@ public class ImagePanel extends JPanel {
 
         Graphics2D g2 = (Graphics2D) g;
         if (img != null) {
-            g2.drawImage(img, 0, 0, this.getWidth(), this.getHeight(),
+            g2.drawImage(img, 0, 0, img.getWidth(this), img.getHeight(this),
                     this);
             if (pressedBtn) {
                 g2.draw(rect);
@@ -111,7 +111,7 @@ public class ImagePanel extends JPanel {
     public void setImage(String path) {
         try {
             img = ImageIO.read(new File(path));
-            zoom = 1;
+            //zoom = 1;
             xImg = 0;
             yImg = 0;
             wImg = img.getWidth(this);
@@ -122,19 +122,19 @@ public class ImagePanel extends JPanel {
         }
     }
 
-    public Point2D getPress(){
+    public Point getPress(){
         return press;
     }
 
-    public Point2D getPressNo() {
+    public Point getPressNo() {
         return pressNo;
     }
 
     private int xImg, yImg, wImg, hImg; // координаты углов картинки
-    private double zoom = 1;
+    //private double zoom = 1;
     private Rectangle2D rect = new Rectangle2D.Double();
     private static Image img = null;
-    private Point2D press = new Point2D.Double(0, 0);
-    private Point2D pressNo = new Point2D.Double(0, 0);
+    private Point press = new Point(0, 0);
+    private Point pressNo = new Point(0, 0);
     private boolean pressedBtn = false;
 }

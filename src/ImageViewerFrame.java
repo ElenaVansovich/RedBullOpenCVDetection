@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Point2D;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -85,9 +84,12 @@ public class ImageViewerFrame extends JFrame {
     }
 
     public String getRectangleCoordinates(){
-        Point2D press = imagePanel.getPress();
-        Point2D pressNo = imagePanel.getPressNo();
-        return " " + 1 + " " + press.getX() + " " + press.getY() + " " + pressNo.getX() + " " + pressNo.getY();
+        Point press = imagePanel.getPress();
+        Point pressNo = imagePanel.getPressNo();
+        return " " + 1 + " " + (int)(Math.min(press.getX(), pressNo.getX()) - imagePanel.getAlignmentX()) +
+                " " + (int) (Math.min(press.getY(), pressNo.getY()) - imagePanel.getAlignmentX()) +
+                " " + (int) Math.abs(pressNo.getX() - press.getX()) +
+                " " + (int) Math.abs(pressNo.getY() - press.getY());
     }
 
     public String getRelativePath(){
@@ -99,13 +101,18 @@ public class ImageViewerFrame extends JFrame {
         if (files.size() != 0) {
             Detect det = new Detect();
             det.detect(files, xmlFile.getPath(), null);
-
         }
     }
 
     public ImageViewerFrame() {
 
-        setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        //setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        Toolkit kit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = kit.getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        setSize(screenWidth, screenHeight - 30);
         setBackground(new Color(216, 230, 243));
 
         chooser = new JFileChooser();
@@ -176,9 +183,8 @@ public class ImageViewerFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if(!path.equals("")) {
-                        if (getNextImage()) {
                             writerBad.write("Bad" + getRelativePath() + "\n");
-                        }
+                            getNextImage();
                     }
 
                 } catch (IOException e1) {
@@ -214,9 +220,8 @@ public class ImageViewerFrame extends JFrame {
                                 (imagePanel.getPressNo()).getY() == 0) {
                             JOptionPane.showMessageDialog(null, "Area is not selected");
                         } else {
-                            if (getNextImage()) {
                                 writerGood.write("Good" + getRelativePath() + getRectangleCoordinates() + "\n");
-                            }
+                                getNextImage();
                         }
                     }
 
@@ -227,6 +232,7 @@ public class ImageViewerFrame extends JFrame {
         });
         this.add(panel, BorderLayout.NORTH);
         this.add(imagePanel, BorderLayout.SOUTH);
+        this.setResizable(false);
 
 
         JMenu testMenu = new JMenu("Test");
