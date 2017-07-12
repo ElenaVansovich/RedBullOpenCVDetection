@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Point2D;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -21,6 +22,7 @@ public class ImageViewerFrame extends JFrame {
     private ArrayList<File> files = new ArrayList<>();
     private ArrayList<File> testFiles = new ArrayList<>();
 
+    private String folderPath = "";
     private String path = "";
     private Integer currentFile = 0;
 
@@ -43,6 +45,32 @@ public class ImageViewerFrame extends JFrame {
             }
         }
     }
+
+    public void quickCheckingBadFiles(final File file, final BufferedWriter writerBad) {
+        for (final File fileEntry : file.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                folderPath = file.getName();
+                quickCheckingBadFiles(fileEntry, writerBad);
+            } else {
+                double fileSize = fileEntry.length();
+                System.out.println(fileSize);
+                if (fileSize < 300.0) {
+                    System.out.println(folder.getName());
+                    try {
+                        path = fileEntry.getPath();
+                        String relativePath = folderPath + "/framesFolder/" + fileEntry.getName().substring(0, fileEntry.getName().length() - 11);
+                        if(!path.equals("")) {
+                          writerBad.write("Bad " + relativePath + "\n");
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
     public void closeWriters(){
         try {
             writerGood.close();
@@ -153,6 +181,23 @@ public class ImageViewerFrame extends JFrame {
                 }
             }
         });
+
+        JMenuItem quickCheckerItem = new JMenuItem("Quick checker");
+        menu.add(quickCheckerItem);
+        quickCheckerItem.addActionListener((new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                int result = chooser.showOpenDialog(null);
+
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    folder = chooser.getSelectedFile();
+                    path = chooser.getSelectedFile().getPath();
+                    writeDatFiles();
+                    quickCheckingBadFiles(folder, writerBad);
+                }
+            }
+        }));
 
         JMenuItem exitItem = new JMenuItem("Exit");
         menu.add(exitItem);
