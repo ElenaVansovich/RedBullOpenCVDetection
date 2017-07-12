@@ -36,12 +36,12 @@ public class ImageViewerFrame extends JFrame {
     private BufferedWriter writerBad;
     private BufferedWriter writerGood;
 
-    public void listFilesForFolder(final File folder) {
+    public void listFilesForFolder(ArrayList<File> list, final File folder) {
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
-                listFilesForFolder(fileEntry);
+                listFilesForFolder(list, fileEntry);
             } else {
-                files.add(fileEntry);
+                list.add(fileEntry);
             }
         }
     }
@@ -126,10 +126,11 @@ public class ImageViewerFrame extends JFrame {
 
 
     public void test() {
-        if (files.size() != 0) {
+        if (testFiles.size() != 0) {
             Detect det = new Detect();
-            det.detect(files, xmlFile.getPath(), null);
+            det.detect(testFiles, xmlFile.getPath(), null);
         }
+        else JOptionPane.showMessageDialog(null, "Test files are not added");
     }
 
     public ImageViewerFrame() {
@@ -175,7 +176,7 @@ public class ImageViewerFrame extends JFrame {
 
                 if (result == JFileChooser.APPROVE_OPTION) {
                     folder = chooser.getSelectedFile();
-                    listFilesForFolder(folder);
+                    listFilesForFolder(files, folder);
                     showFiles(files);
                     writeDatFiles();
                 }
@@ -293,6 +294,20 @@ public class ImageViewerFrame extends JFrame {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     xmlFile = chooser.getSelectedFile();
                     isXmlAdded = true;
+                }
+            }
+        });
+
+        JMenuItem chooseTestFilesItem = new JMenuItem("Choose test directory");
+        testMenu.add(chooseTestFilesItem);
+        chooseTestFilesItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                int result = chooser.showOpenDialog(null);
+
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File testFolder = chooser.getSelectedFile();
+                    listFilesForFolder(testFiles, testFolder);
                 }
             }
         });
