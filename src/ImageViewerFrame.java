@@ -58,8 +58,8 @@ public class ImageViewerFrame extends JFrame {
                     try {
                         path = fileEntry.getPath();
                         String relativePath = folderPath + "/framesFolder/" + fileEntry.getName().substring(0, fileEntry.getName().length() - 11);
-                        if(!path.equals("")) {
-                          writerBad.write("Bad " + relativePath + "\n");
+                        if (!path.equals("")) {
+                            writerBad.write("Bad " + relativePath + "\n");
                         }
 
                     } catch (IOException e) {
@@ -70,7 +70,7 @@ public class ImageViewerFrame extends JFrame {
         }
     }
 
-    public void closeWriters(){
+    public void closeWriters() {
         try {
             if (writerGood != null)
                 writerGood.close();
@@ -104,24 +104,23 @@ public class ImageViewerFrame extends JFrame {
             closeWriters();
             JOptionPane.showMessageDialog(null, "No more files");
             return false;
-        }
-        else {
+        } else {
             path = files.get(currentFile).getPath();
             imagePanel.setImage(path);
             return true;
         }
     }
 
-    public String getRectangleCoordinates(){
+    public String getRectangleCoordinates() {
         Point press = imagePanel.getPress();
         Point pressNo = imagePanel.getPressNo();
-        return " " + 1 + " " + (int)(Math.min(press.getX(), pressNo.getX()) - imagePanel.getAlignmentX()) +
+        return " " + 1 + " " + (int) (Math.min(press.getX(), pressNo.getX()) - imagePanel.getAlignmentX()) +
                 " " + (int) (Math.min(press.getY(), pressNo.getY()) - imagePanel.getAlignmentX()) +
                 " " + (int) Math.abs(pressNo.getX() - press.getX()) +
                 " " + (int) Math.abs(pressNo.getY() - press.getY());
     }
 
-    public String getRelativePath(){
+    public String getRelativePath() {
         return path.substring(folder.getPath().length());
     }
 
@@ -130,8 +129,7 @@ public class ImageViewerFrame extends JFrame {
         if (testFiles.size() != 0) {
             Detect det = new Detect();
             det.detect(testFiles, xmlFile.getPath(), null);
-        }
-        else JOptionPane.showMessageDialog(null, "Test files are not added");
+        } else JOptionPane.showMessageDialog(null, "Test files are not added");
     }
 
     public ImageViewerFrame() {
@@ -150,65 +148,6 @@ public class ImageViewerFrame extends JFrame {
 
         JMenuBar menuBar = new JMenuBar();
         this.setJMenuBar(menuBar);
-
-        JMenu menu = new JMenu("File");
-        menuBar.add(menu);
-
-        JMenuItem openItem = new JMenuItem("Open");
-        menu.add(openItem);
-        openItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                int result = chooser.showOpenDialog(null);
-
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    path = chooser.getSelectedFile().getPath();
-                    imagePanel.setImage(path);
-                    writeDatFiles();
-                }
-            }
-        });
-
-        JMenuItem chooseItem = new JMenuItem("Choose directory");
-        menu.add(chooseItem);
-        chooseItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-                int result = chooser.showOpenDialog(null);
-
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    folder = chooser.getSelectedFile();
-                    listFilesForFolder(files, folder);
-                    showFiles(files);
-                    writeDatFiles();
-                }
-            }
-        });
-
-        JMenuItem quickCheckerItem = new JMenuItem("Quick checker");
-        menu.add(quickCheckerItem);
-        quickCheckerItem.addActionListener((new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-                int result = chooser.showOpenDialog(null);
-
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    folder = chooser.getSelectedFile();
-                    path = chooser.getSelectedFile().getPath();
-                    writeDatFiles();
-                    quickCheckingBadFiles(folder, writerBad);
-                }
-            }
-        }));
-
-        JMenuItem exitItem = new JMenuItem("Exit");
-        menu.add(exitItem);
-        exitItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                closeWriters();
-                System.exit(0);
-            }
-        });
 
         imagePanel = new ImagePanel();
         imagePanel.setPreferredSize(new Dimension(DEFAULT_WIDTH - 50, DEFAULT_HEIGHT - 50));
@@ -229,9 +168,9 @@ public class ImageViewerFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if(!path.equals("")) {
-                            writerBad.write("Bad" + getRelativePath() + "\n");
-                            getNextImage();
+                    if (!path.equals("")) {
+                        writerBad.write("Bad" + getRelativePath() + "\n");
+                        getNextImage();
                     }
 
                 } catch (IOException e1) {
@@ -268,8 +207,8 @@ public class ImageViewerFrame extends JFrame {
                                 (imagePanel.getPressNo()).getY() == 0) {
                             JOptionPane.showMessageDialog(null, "Area is not selected");
                         } else {
-                                writerGood.write("Good" + getRelativePath() + getRectangleCoordinates() + "\n");
-                                getNextImage();
+                            writerGood.write("Good" + getRelativePath() + getRectangleCoordinates() + "\n");
+                            getNextImage();
                         }
                     }
 
@@ -284,6 +223,39 @@ public class ImageViewerFrame extends JFrame {
 
         JMenu trainingMenu = new JMenu("Training");
         menuBar.add(trainingMenu);
+
+        JMenuItem chooseItem = new JMenuItem("Choose directory");
+        trainingMenu.add(chooseItem);
+        chooseItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                int result = chooser.showOpenDialog(null);
+
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    folder = chooser.getSelectedFile();
+                    listFilesForFolder(files, folder);
+                    showFiles(files);
+                    writeDatFiles();
+                }
+            }
+        });
+
+        JMenuItem quickCheckerItem = new JMenuItem("Quick checker");
+        trainingMenu.add(quickCheckerItem);
+        quickCheckerItem.addActionListener((new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                int result = chooser.showOpenDialog(null);
+
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    folder = chooser.getSelectedFile();
+                    path = chooser.getSelectedFile().getPath();
+                    writeDatFiles();
+                    quickCheckingBadFiles(folder, writerBad);
+                }
+            }
+        }));
 
         JMenuItem trainItem = new JMenuItem("Train");
         trainingMenu.add(trainItem);
@@ -326,6 +298,7 @@ public class ImageViewerFrame extends JFrame {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     xmlFile = chooser.getSelectedFile();
                     isXmlAdded = true;
+                    JOptionPane.showMessageDialog(null, "Xml file is added");
                 }
             }
         });
@@ -340,6 +313,7 @@ public class ImageViewerFrame extends JFrame {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File testFolder = chooser.getSelectedFile();
                     listFilesForFolder(testFiles, testFolder);
+                    JOptionPane.showMessageDialog(null, "Directory \"" + testFolder.getName() + "\" is choosed");
                 }
             }
         });
@@ -348,14 +322,11 @@ public class ImageViewerFrame extends JFrame {
         testMenu.add(testItem);
         testItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                if (!isXmlAdded){
+                if (!isXmlAdded) {
                     JOptionPane.showMessageDialog(null, "Xml is not added");
-                }
-                else test();
+                } else test();
             }
         });
-
-
     }
 
     public String getPath() {
