@@ -142,6 +142,7 @@ public class ImageViewerFrame extends JFrame {
 
         setSize(screenWidth, screenHeight - 30);
         setBackground(new Color(216, 230, 243));
+        writeDatFiles();
 
         chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File("."));
