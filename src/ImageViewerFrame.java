@@ -280,6 +280,29 @@ public class ImageViewerFrame extends JFrame {
         this.add(imagePanel, BorderLayout.SOUTH);
         this.setResizable(false);
 
+        JMenu trainingMenu = new JMenu("Training");
+        menuBar.add(trainingMenu);
+
+        JMenuItem trainItem = new JMenuItem("Train");
+        trainingMenu.add(trainItem);
+        trainItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ExecuteShellComand obj = new ExecuteShellComand();
+
+                String domainName = "google.com";
+
+                //in mac oxs
+                String command = "ping -c 3 " + domainName;
+
+                //in windows
+                //String command = "ping -n 3 " + domainName;
+
+                String output = obj.executeCommand(command);
+
+                System.out.println(output);
+            }
+        });
+
 
         JMenu testMenu = new JMenu("Test");
         menuBar.add(testMenu);
