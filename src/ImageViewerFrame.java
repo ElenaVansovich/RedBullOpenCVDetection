@@ -72,8 +72,10 @@ public class ImageViewerFrame extends JFrame {
 
     public void closeWriters(){
         try {
-            writerGood.close();
-            writerBad.close();
+            if (writerGood != null)
+                writerGood.close();
+            if (writerBad != null)
+                writerBad.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -142,7 +144,6 @@ public class ImageViewerFrame extends JFrame {
 
         setSize(screenWidth, screenHeight - 30);
         setBackground(new Color(216, 230, 243));
-        writeDatFiles();
 
         chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File("."));
@@ -290,13 +291,21 @@ public class ImageViewerFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 ExecuteShellComand obj = new ExecuteShellComand();
 
-                String domainName = "google.com";
+                String current = System.getProperty("user.dir");
 
-                //in mac oxs
-                String command = "ping -c 3 " + domainName;
+                chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                int result = chooser.showOpenDialog(null);
 
-                //in windows
-                //String command = "ping -n 3 " + domainName;
+                String exePath = "";
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    exePath = chooser.getSelectedFile().getAbsolutePath();
+                }
+
+                String command = exePath + "\\opencv_traincascade.exe -data " +
+                        current + "\\haarcascade -vec " + current + "\\samples.vec -bg " +
+                        current + "\\bad.dat -numStages " +
+                        "8 -minhitrate 0.99 -maxFalseAlarmRate 0.4 -numPos 114 -numNeg 304 -w 90 -h 50 " +
+                        " -precalcValBufSize 512 -precalcIdxBufSize 512";
 
                 String output = obj.executeCommand(command);
 
