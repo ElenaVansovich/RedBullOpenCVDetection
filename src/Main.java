@@ -11,7 +11,14 @@ public class Main {
     public static void main(String[] args) {
 
         JFrame frame = new ImageViewerFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                ((ImageViewerFrame)frame).closeWriters();
+                    System.exit(0);
+            }
+        });
     }
 }
