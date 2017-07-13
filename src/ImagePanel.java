@@ -48,6 +48,7 @@ public class ImagePanel extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 pressNo = e.getPoint();
                 pressedBtn = false;
+                isAreaSelected = true;
                 //проверка, не выходит ли прямоугольник за границы картинки
                 /*if(pressNo.getX() != 0 && pressNo.getY() != 0) {
                     if (xImg <= press.getX() && yImg <= press.getY()
@@ -122,12 +123,20 @@ public class ImagePanel extends JPanel {
         }
     }
 
-    public Point getPress(){
+    public Point getPress() {
         return press;
     }
 
     public Point getPressNo() {
         return pressNo;
+    }
+
+    public boolean isAreaSelected() {
+        return isAreaSelected;
+    }
+
+    public void resetArea() {
+        isAreaSelected = false;
     }
 
     private int xImg, yImg, wImg, hImg; // координаты углов картинки
@@ -137,4 +146,5 @@ public class ImagePanel extends JPanel {
     private Point press = new Point(0, 0);
     private Point pressNo = new Point(0, 0);
     private boolean pressedBtn = false;
+    private boolean isAreaSelected = false;
 }
