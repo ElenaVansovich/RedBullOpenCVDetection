@@ -8,7 +8,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by user on 08.07.2017.
@@ -240,7 +242,14 @@ public class ImageViewerFrame extends JFrame {
             if (fileEntry.isDirectory()) {
                 listFilesForFolder(list, fileEntry);
             } else {
-                list.add(fileEntry);
+                String mymetype = null;
+                try {
+                    mymetype = Files.probeContentType(fileEntry.toPath());
+                    if (mymetype != null && mymetype.split("/")[0].equals("image"))
+                        list.add(fileEntry);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -252,13 +261,27 @@ public class ImageViewerFrame extends JFrame {
                 quickCheckingBadFiles(fileEntry, writerBad);
             } else {
                 double fileSize = fileEntry.length();
-                System.out.println(fileSize);
                 if (fileSize < 300.0) {
-                    System.out.println(folder.getName());
                     try {
                         path = fileEntry.getPath();
-                        String relativePath = folderPath + "/framesFolder/" + fileEntry.getName().substring(0, fileEntry.getName().length() - 11);
-                        if (!path.equals("")) {
+                        String relativePath = folderPath + "\\framesFolder\\" + fileEntry.getName().substring(0, fileEntry.getName().length() - 11);
+                        String imagePath = "";
+
+                        for (String retval: path.split("\\")) {
+                            if (retval.equals("xmls")) {
+                                break;
+                            }
+
+                            if (retval.equals("")) {
+                                continue;
+                            }
+
+                            imagePath = imagePath.concat("\\" + retval);
+                        }
+
+                        imagePath = imagePath.concat("\\pngs\\" + relativePath);
+                        File imageFile = new File(imagePath);
+                        if (!path.equals("") && imageFile.exists()) {
                             writerBad.write("Bad " + relativePath + "\n");
                         }
                     } catch (IOException e) {
